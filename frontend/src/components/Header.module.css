@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 35%;
+  background-color: #eee9da;
+}
+
+.titleHeader {
+  color: black;
+  letter-spacing: 2px;
+  margin-top: 25px;
+  text-decoration: underline rgb(62, 241, 62);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 20px;
+}
+
+@media (max-width: 530px) {
+  .titleHeader {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 335px) {
+  .titleHeader {
+    font-size: 35px;
+  }
+}

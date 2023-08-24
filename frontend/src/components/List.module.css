@@ -1,0 +1,65 @@
+.task {
+  display: flex;
+  justify-content: space-between;
+  width: clamp(350px, 50%, 500px);
+  background-color: #bdcdd6;
+  border: 2px solid #bdcdd6;
+  margin-left: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 1em;
+}
+
+.task:hover {
+  background-color: #93bfcf;
+  border-color: #93bfcf;
+}
+
+.details {
+  text-align: left;
+}
+.details h4 {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.actions i {
+  margin-bottom: 0.5em;
+  font-size: 0.7em;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  padding: 0.4em;
+  transform: 0.5s;
+  border-radius: 5px;
+}
+
+.actions i:hover {
+  color: #6096b4;
+}
+
+@media (max-width: 530px) {
+  .task {
+    width: clamp(250px, 50%, 400px);
+  }
+  .details h4 {
+    font-size: 0.6em;
+  }
+  .actions i {
+    font-size: 0.5em;
+  }
+}
+@media (max-width: 335px) {
+  .details h4 {
+    font-size: 0.5em;
+  }
+  .actions i {
+    font-size: 0.4em;
+  }
+}

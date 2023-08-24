@@ -1,0 +1,17 @@
+.main {
+  min-height: 69.4vh;
+  text-align: center;
+  padding: 2em;
+  background-color: #eee9da;
+}
+
+.main h2 {
+  margin-bottom: 0.8em;
+}
+.todo {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-top: 1px solid #bdcdd6;
+  margin-top: 1em;
+}
