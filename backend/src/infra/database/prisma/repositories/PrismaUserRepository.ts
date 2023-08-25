@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from 'src/domain/entities/User';
 import { UserRepository } from 'src/domain/repositories/UserRepository';
 import { PrismaService } from '../prisma.service';
+import { UpdateUserDTO } from 'src/infra/http/dtos/updateUserDTO';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -9,8 +11,40 @@ export class PrismaUserRepository implements UserRepository {
   async create(user: User): Promise<void> {
     const { id, name, email, password, createdAt, updatedAt } = user;
 
-    await this.prisma.user.create({
-      data: { id, name, email, password, createdAt, updatedAt },
+    try {
+      await this.prisma.user.create({
+        data: { id, name, email, password, createdAt, updatedAt },
+      });
+    } catch (err) {
+      throw new ForbiddenException('Email already exists');
+    }
+  }
+  async update(id: string, data: UpdateUserDTO): Promise<HttpStatus> {
+    if (data.password) {
+      const salt = await bcrypt.genSalt(10);
+      data.password = await bcrypt.hash(data.password, salt);
+    }
+    await this.prisma.user.update({
+      where: {
+        id,
+      },
+      data,
     });
+    return HttpStatus.OK;
+  }
+  async login(email: string, password: string): Promise<HttpStatus> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!user) {
+      throw new ForbiddenException('Email or password incorrect');
+    }
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
+      throw new ForbiddenException('Email or password incorrect');
+    }
+    return HttpStatus.OK;
   }
 }

@@ -3,6 +3,7 @@ interface UserProps {
   name: string;
   email: string;
   password: string;
+  tasks?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -14,6 +15,7 @@ export class User {
   constructor(props: UserProps) {
     this.props = {
       ...props,
+      tasks: props.tasks ?? [],
       createdAt: props.createdAt ?? new Date(),
       updatedAt: props.updatedAt ?? new Date(),
     };
@@ -35,6 +37,12 @@ export class User {
   }
   get name(): string {
     return this.props.name;
+  }
+  public set tasks(tasks: string[]) {
+    this.props.tasks = tasks;
+  }
+  public get tasks(): string[] {
+    return this.props.tasks;
   }
 
   set password(password: string) {
