@@ -1,18 +1,16 @@
 import * as crypto from 'node:crypto';
-interface UserData {
+interface CategoryData {
   name: string;
-  email: string;
-  password: string;
   tasks?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export class User {
-  private data: UserData;
+export class Category {
+  private data: CategoryData;
   private _id: string;
 
-  constructor(data: UserData) {
+  constructor(data: CategoryData) {
     this.data = {
       ...data,
       tasks: data.tasks ?? [],
@@ -23,13 +21,6 @@ export class User {
   }
   get id(): string {
     return this._id;
-  }
-
-  set email(email: string) {
-    this.data.email = email;
-  }
-  get email(): string {
-    return this.data.email;
   }
 
   set name(name: string) {
@@ -43,13 +34,6 @@ export class User {
   }
   public get tasks(): string[] {
     return this.data.tasks;
-  }
-
-  set password(password: string) {
-    this.data.password = password;
-  }
-  get password(): string {
-    return this.data.password;
   }
 
   get updatedAt(): Date {

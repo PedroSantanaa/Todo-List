@@ -1,22 +1,28 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { User } from 'src/domain/entities/User';
-import { UserRepository } from 'src/domain/repositories/UserRepository';
 import { PrismaService } from '../prisma.service';
 import { UpdateUserDTO } from 'src/infra/http/dtos/updateUserDTO';
 import * as bcrypt from 'bcrypt';
+import { CategoryRepository } from 'src/domain/repositories/CategoryRepository';
+import { Category } from 'src/domain/entities/Category';
 
 @Injectable()
-export class PrismaUserRepository implements UserRepository {
+export class PrismaCategoryRepository implements CategoryRepository {
   constructor(private readonly prisma: PrismaService) {}
-  async create(user: User): Promise<void> {
-    const { id, name, email, password, createdAt, updatedAt } = user;
+  findAll(): Promise<Category[]> {
+    throw new Error('Method not implemented.');
+  }
+  async delete(id: string): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  async create(category: Category): Promise<void> {
+    const { id, name, createdAt, updatedAt } = category;
 
     try {
-      await this.prisma.user.create({
-        data: { id, name, email, password, createdAt, updatedAt },
+      await this.prisma.category.create({
+        data: { id, name, createdAt, updatedAt },
       });
     } catch (err) {
-      throw new ForbiddenException('Email already exists');
+      throw new ForbiddenException('Category already exists');
     }
   }
   async update(id: string, data: UpdateUserDTO): Promise<void> {
