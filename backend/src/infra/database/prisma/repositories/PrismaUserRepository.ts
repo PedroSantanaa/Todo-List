@@ -32,7 +32,7 @@ export class PrismaUserRepository implements UserRepository {
       data,
     });
   }
-  async login(email: string, password: string): Promise<any> {
+  async login(email: string, password: string): Promise<void> {
     const user = await this.prisma.user.findUnique({
       where: {
         email,

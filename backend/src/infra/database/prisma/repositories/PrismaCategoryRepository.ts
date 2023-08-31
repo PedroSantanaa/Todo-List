@@ -4,15 +4,24 @@ import { UpdateUserDTO } from 'src/infra/http/dtos/updateUserDTO';
 import * as bcrypt from 'bcrypt';
 import { CategoryRepository } from 'src/domain/repositories/CategoryRepository';
 import { Category } from 'src/domain/entities/Category';
+import { CategoryNameDTO } from 'src/infra/http/dtos/categoryNameDTO';
 
 @Injectable()
 export class PrismaCategoryRepository implements CategoryRepository {
   constructor(private readonly prisma: PrismaService) {}
-  findAll(): Promise<Category[]> {
-    throw new Error('Method not implemented.');
+  async getCategoriesName(): Promise<CategoryNameDTO[]> {
+    const categories = await this.prisma.category.findMany();
+    const categoriesName: CategoryNameDTO[] = categories.map((category) => ({
+      name: category.name,
+    }));
+    return categoriesName;
   }
   async delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+    await this.prisma.category.delete({
+      where: {
+        id,
+      },
+    });
   }
   async create(category: Category): Promise<void> {
     const { id, name, createdAt, updatedAt } = category;
@@ -37,19 +46,5 @@ export class PrismaCategoryRepository implements CategoryRepository {
       },
       data,
     });
-  }
-  async login(email: string, password: string): Promise<any> {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-    if (!user) {
-      throw new ForbiddenException('Email or password incorrect');
-    }
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    if (!isPasswordCorrect) {
-      throw new ForbiddenException('password incorrect');
-    }
   }
 }
