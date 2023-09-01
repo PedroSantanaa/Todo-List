@@ -1,21 +1,21 @@
-import * as crypto from 'node:crypto';
+import { Task } from './Task';
 interface CategoryData {
   name: string;
-  tasks?: string[];
+  task?: Task[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export class Category {
   public name: string;
-  public tasks: string[];
+  public task: Task[];
   public createdAt: Date;
   public updatedAt: Date;
   public _id: string;
 
   constructor(data: CategoryData) {
     this.name = data.name;
-    this.tasks = data.tasks || [];
+    this.task = data.task || [];
     this.createdAt = data.createdAt || new Date();
     this.updatedAt = data.updatedAt || new Date();
     this._id = crypto.randomUUID();

@@ -4,6 +4,8 @@ import { UserRepository } from 'src/domain/repositories/UserRepository';
 import { PrismaUserRepository } from './prisma/repositories/PrismaUserRepository';
 import { CategoryRepository } from 'src/domain/repositories/CategoryRepository';
 import { PrismaCategoryRepository } from './prisma/repositories/PrismaCategoryRepository';
+import { TaskRepository } from 'src/domain/repositories/TaskRepository';
+import { PrismaTaskRepository } from './prisma/repositories/PrismaTaskRepository';
 
 @Module({
   providers: [
@@ -16,7 +18,11 @@ import { PrismaCategoryRepository } from './prisma/repositories/PrismaCategoryRe
       provide: CategoryRepository,
       useClass: PrismaCategoryRepository,
     },
+    {
+      provide: TaskRepository,
+      useClass: PrismaTaskRepository,
+    },
   ],
-  exports: [UserRepository, CategoryRepository],
+  exports: [UserRepository, CategoryRepository, TaskRepository],
 })
 export class DatabaseModule {}

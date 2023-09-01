@@ -1,9 +1,10 @@
 import * as crypto from 'node:crypto';
+import { Task } from './Task';
 interface UserData {
   name: string;
   email: string;
   password: string;
-  tasks?: string[];
+  tasks?: Task[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -12,7 +13,7 @@ export class User {
   public name: string;
   public email: string;
   public password: string;
-  public tasks: string[];
+  public tasks: Task[];
   public createdAt: Date;
   public updatedAt: Date;
   // private data: UserData;
