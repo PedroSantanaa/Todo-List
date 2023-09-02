@@ -1,0 +1,21 @@
+.background {
+  background-color: #eee9da;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.link {
+  text-decoration: none;
+  color: #6096b4;
+  font-weight: bold;
+  font-size: 17px;
+  transition: 0.5s;
+}
