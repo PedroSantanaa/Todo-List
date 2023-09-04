@@ -26,6 +26,9 @@ function Home() {
     api.get(`/task/${user?.id}`).then((response) => {
       setTaskList(response.data);
     });
+    api.get("/category").then((response) => {
+      setCategoryList(response.data);
+    });
   }, [user]);
   console.log(taskList);
 
@@ -64,7 +67,7 @@ function Home() {
         children={
           <Form
             btnText="Edit Task"
-            taskList={taskList}
+            categories={categoryList}
             task={taskToupdate}
             handleUpdate={updateTask}
           />
@@ -73,7 +76,7 @@ function Home() {
       {/* <Header /> */}
       <main className={styles.main}>
         <div className="form"></div>
-        <Form btnText="Criar Tarefa" taskList={taskList} setTaskList={setTaskList} />
+        <Form btnText="Criar Tarefa" categories={categoryList} />
         <div className={styles.todo}>
           <List taskList={taskList} handleDelete={deleteTask} handleEdit={editTask} />
         </div>

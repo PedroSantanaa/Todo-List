@@ -5,13 +5,15 @@ import Input from "./Input";
 import { useAuth } from "../context/Auth";
 import { api } from "../axios/api";
 import { CreateTask } from "../interfaces/CreateTask";
+import { ICategory } from "../interfaces/Category";
 
 interface Props {
   btnText: string;
+  categories: ICategory[];
   task?: ITask | null;
   handleUpdate?(id: number, title: string, difficulty: number): void;
 }
-const Form = ({ btnText, task, handleUpdate }: Props) => {
+const Form = ({ btnText, categories, task, handleUpdate }: Props) => {
   //states
   const [id, setId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
@@ -34,20 +36,14 @@ const Form = ({ btnText, task, handleUpdate }: Props) => {
       handleUpdate(id, title, difficulty);
     } else {
       //Id to edit or delete
-      const newTask: CreateTask = { title, difficulty };
+      // const newTask: CreateTask = { title, difficulty };
       api.post;
 
       setTitle("");
       setDifficulty(0);
     }
   };
-  const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    if (ev.target.name === "title") {
-      setTitle(ev.target.value);
-    } else {
-      setDifficulty(Number(ev.target.value));
-    }
-  };
+
   return (
     <form onSubmit={taskHandle} className={styles.form}>
       <div>
@@ -56,23 +52,21 @@ const Form = ({ btnText, task, handleUpdate }: Props) => {
             type="text"
             name="title"
             placeholder="Add a new task"
-            onChange={handleChange}
+            onChange={(ev: ChangeEvent<HTMLInputElement>) => setTitle(ev.target.value)}
             value={title}
             required
           />
         </label>
       </div>
       <div>
-        <label>
-          <p>Category:</p>
-          <Input
-            type="text"
-            name="difficulty"
-            placeholder="0"
-            onChange={handleChange}
-            value={difficulty}
-          />
-        </label>
+        <label>Category</label>
+        <select name="category" id="category">
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
       <input type="submit" value={btnText} />
     </form>
