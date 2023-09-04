@@ -14,7 +14,9 @@ import { DeleteTaskCase } from 'src/application/use-cases/task/delete-task-case'
 import { UpdateTaskDTO } from '../../dtos/updateTaskDTO';
 import { UpdateTaskCase } from 'src/application/use-cases/task/update-task-case';
 import { GetTasksCase } from 'src/application/use-cases/task/get-tasks-case';
+// import { AuthGuard } from '../Auth/guards/auth-guard.guard';
 
+// @UseGuards(AuthGuard)
 @Controller('task')
 export class TaskController {
   constructor(

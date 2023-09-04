@@ -32,7 +32,7 @@ export class CategoryController {
   async getCategoriesName() {
     const { categoriesObj } = await this.getCategoriesNameCategory.execute();
     const categoriesName = categoriesObj.map((obj) => obj.name);
-    return categoriesName;
+    return categoriesObj;
   }
   @Delete(':uuid')
   async delete(@Param('uuid', new ParseUUIDPipe()) uuid: string) {

@@ -11,6 +11,7 @@ export class PrismaCategoryRepository implements CategoryRepository {
   async getCategoriesName(): Promise<CategoryNameDTO[]> {
     const categories = await this.prisma.category.findMany();
     const categoriesName: CategoryNameDTO[] = categories.map((category) => ({
+      id: category.id,
       name: category.name,
     }));
     return categoriesName;

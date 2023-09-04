@@ -13,6 +13,7 @@ export class GetCategoriesNameCase {
   async execute(): Promise<GetCategoriesNameResponse> {
     const categories = await this.categoryRepository.getCategoriesName();
     const categoriesObj: CategoryNameDTO[] = categories.map((category) => ({
+      id: category.id,
       name: category.name,
     }));
     return { categoriesObj };

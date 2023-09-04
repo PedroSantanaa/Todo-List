@@ -6,9 +6,11 @@ import { CategoryRepository } from 'src/domain/repositories/CategoryRepository';
 import { PrismaCategoryRepository } from './prisma/repositories/PrismaCategoryRepository';
 import { TaskRepository } from 'src/domain/repositories/TaskRepository';
 import { PrismaTaskRepository } from './prisma/repositories/PrismaTaskRepository';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   providers: [
+    JwtService,
     PrismaService,
     {
       provide: UserRepository,

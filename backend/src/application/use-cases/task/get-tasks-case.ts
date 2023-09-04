@@ -13,6 +13,7 @@ export class GetTasksCase {
   async execute(uuid: string): Promise<GetTasksResponse> {
     const tasks = await this.taskRepository.getTasks(uuid);
     const task: GetTasksDTO[] = tasks.map((task) => ({
+      id: task.id,
       title: task.title,
       categoryId: task.categoryId,
     }));

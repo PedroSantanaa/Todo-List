@@ -3,5 +3,6 @@
 
 # Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
-DATABASE_URL="postgresql://postgres:vacuumBack@localhost:5432/todoDB?schema=public"
-JWT_SECRET="Ly8B!<.,k3%MY){YYnf2qA3/t*9UF!%s" 
+
+DATABASE_URL="postgresql://postgres:daTABASE@localhost:5432/todoDB?schema=public"
+JWT_SECRET='SECRET'

@@ -1,13 +1,57 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { User } from 'src/domain/entities/User';
 import { UserRepository } from 'src/domain/repositories/UserRepository';
 import { PrismaService } from '../prisma.service';
 import { UpdateUserDTO } from 'src/infra/http/dtos/updateUserDTO';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { LoginUserDTO } from 'src/infra/http/dtos/loginUserDTO';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
+  createToken(user: LoginUserDTO): string {
+    return this.jwtService.sign(
+      {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+      {
+        secret: process.env.JWT_SECRET,
+        expiresIn: '7d',
+        subject: user.id,
+        issuer: 'login',
+      },
+    );
+  }
+  checkToken(token: string) {
+    console.log(token);
+    try {
+      this.jwtService.verify(token, {
+        issuer: 'login',
+        secret: process.env.JWT_SECRET,
+      });
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException(e);
+    }
+  }
+  isValidToken(token: string): boolean {
+    try {
+      this.checkToken(token);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
   async create(user: User): Promise<void> {
     const { id, name, email, password, createdAt, updatedAt } = user;
 
@@ -32,7 +76,7 @@ export class PrismaUserRepository implements UserRepository {
       data,
     });
   }
-  async login(email: string, password: string): Promise<void> {
+  async login(email: string, password: string): Promise<string> {
     const user = await this.prisma.user.findUnique({
       where: {
         email,
@@ -43,7 +87,8 @@ export class PrismaUserRepository implements UserRepository {
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      throw new ForbiddenException('password incorrect');
+      throw new ForbiddenException('Password incorrect');
     }
+    return this.createToken(user);
   }
 }
