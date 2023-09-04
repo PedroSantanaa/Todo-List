@@ -1,15 +1,17 @@
 import styles from "./Form.module.css";
 import { ITask } from "../interfaces/Task";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import Input from "./Input";
+import { useAuth } from "../context/Auth";
+import { api } from "../axios/api";
+import { CreateTask } from "../interfaces/CreateTask";
 
 interface Props {
   btnText: string;
-  taskList: ITask[];
-  setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>>;
   task?: ITask | null;
   handleUpdate?(id: number, title: string, difficulty: number): void;
 }
-const Form = ({ btnText, taskList, setTaskList, task, handleUpdate }: Props) => {
+const Form = ({ btnText, task, handleUpdate }: Props) => {
   //states
   const [id, setId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
@@ -32,9 +34,8 @@ const Form = ({ btnText, taskList, setTaskList, task, handleUpdate }: Props) => 
       handleUpdate(id, title, difficulty);
     } else {
       //Id to edit or delete
-      const id = Math.floor(Math.random() * 1000);
-      const newTask: ITask = { id, title, difficulty };
-      setTaskList!([...taskList, newTask]);
+      const newTask: CreateTask = { title, difficulty };
+      api.post;
 
       setTitle("");
       setDifficulty(0);
@@ -51,7 +52,7 @@ const Form = ({ btnText, taskList, setTaskList, task, handleUpdate }: Props) => 
     <form onSubmit={taskHandle} className={styles.form}>
       <div>
         <label>
-          <input
+          <Input
             type="text"
             name="title"
             placeholder="Add a new task"
@@ -63,8 +64,8 @@ const Form = ({ btnText, taskList, setTaskList, task, handleUpdate }: Props) => 
       </div>
       <div>
         <label>
-          <p>Difficulty:</p>
-          <input
+          <p>Category:</p>
+          <Input
             type="text"
             name="difficulty"
             placeholder="0"

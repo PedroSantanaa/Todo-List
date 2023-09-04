@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //Css
 import styles from ".././App.module.css";
@@ -9,13 +9,26 @@ import { ITask } from "../interfaces/Task";
 //Componentes
 import Footer from "../components/Footer";
 import Form from "../components/Form";
-import Header from "../components/Header";
 import List from "../components/List";
 import Modal from "../components/Modal";
+import { useAuth } from "../context/Auth";
+import { ICategory } from "../interfaces/Category";
+import { api } from "../axios/api";
 
 function Home() {
   const [taskList, setTaskList] = useState<ITask[]>([]);
+  const [categoryList, setCategoryList] = useState<ICategory[]>([]);
   const [taskToupdate, setTaskToUpdate] = useState<ITask | null>(null);
+  const { user } = useAuth();
+  console.log(user);
+
+  useEffect(() => {
+    api.get(`/task/${user?.id}`).then((response) => {
+      setTaskList(response.data);
+    });
+  }, [user]);
+  console.log(taskList);
+
   const deleteTask = (id: number) => {
     setTaskList(
       taskList.filter((task) => {

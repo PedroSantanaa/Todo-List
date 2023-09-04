@@ -7,12 +7,16 @@
   background-color: #e2dcc5;
 }
 
-.link a {
+.linkNoAuth a {
   text-decoration: none;
   padding: 0 20px;
   font-size: 20px;
 }
-
+.linkAuth a {
+  text-decoration: none;
+  padding: 0 20px;
+  font-size: 20px;
+}
 .titleHeader {
   color: black;
   letter-spacing: 2px;
