@@ -10,10 +10,19 @@ const Register = (props: Props) => {
     <div className={styles.background}>
       <LoginCard title="Faça Seu Cadastro">
         <form className={styles.form} action="">
-          <Input placeholder="Name" type="text" name="name" />
-          <Input placeholder="Email" type="email" name="email" />
-          <Input placeholder="Password" type="password" name="password" />
-          <SubmitButton>Entrar</SubmitButton>
+          <div>
+            <span>Name</span>
+            <Input placeholder="Name" type="text" name="name" />
+          </div>
+          <div>
+            <span>Email</span>
+            <Input placeholder="Email" type="email" name="email" />
+          </div>
+          <div>
+            <span>Password</span>
+            <Input placeholder="Password" type="password" name="password" />
+          </div>
+          <SubmitButton>Cadastrar</SubmitButton>
         </form>
       </LoginCard>
     </div>

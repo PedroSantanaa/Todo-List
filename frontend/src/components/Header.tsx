@@ -1,12 +1,15 @@
+import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 const Header = () => {
   return (
     <header className={styles.header}>
-      <h1 className={styles.titleHeader}>Todo List</h1>
-      <ul>
-        <li>Login</li>
-        <li>Register</li>
-      </ul>
+      <Link to="/" className={styles.titleHeader}>
+        Todo List
+      </Link>
+      <div className={styles.link}>
+        <Link to="/login"> LOGIN</Link>
+        <Link to="/register">REGISTER</Link>
+      </div>
     </header>
   );
 };

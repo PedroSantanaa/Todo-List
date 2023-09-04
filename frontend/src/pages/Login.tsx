@@ -11,11 +11,17 @@ const Login = (props: Props) => {
     <div className={styles.background}>
       <LoginCard title="Faça Seu Login">
         <form className={styles.form} action="">
-          <Input placeholder="Email" type="email" name="email" />
-          <Input placeholder="Password" type="password" name="password" />
+          <div>
+            <span>Email</span>
+            <Input placeholder="Email" type="email" name="email" />
+          </div>
+          <div>
+            <span>Password</span>
+            <Input placeholder="Password" type="password" name="password" />
+          </div>
           <SubmitButton>Entrar</SubmitButton>
           <Link className={styles.link} to="/register">
-            Não tem uma conta? Cadastre-se
+            Não tem uma conta? <span>Cadastre-se</span>
           </Link>
         </form>
       </LoginCard>

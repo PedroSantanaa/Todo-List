@@ -57,7 +57,7 @@ function Home() {
           />
         }
       />
-      <Header />
+      {/* <Header /> */}
       <main className={styles.main}>
         <div className="form"></div>
         <Form btnText="Criar Tarefa" taskList={taskList} setTaskList={setTaskList} />

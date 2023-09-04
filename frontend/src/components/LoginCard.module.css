@@ -7,9 +7,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 80px;
+  gap: 35px;
 }
 h4 {
-  color: black;
+  color: #666666;
   font-size: 30px;
 }

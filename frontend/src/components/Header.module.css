@@ -1,19 +1,28 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 30px;
   flex-wrap: wrap;
-  gap: 35%;
-  background-color: #eee9da;
+  background-color: #e2dcc5;
+}
+
+.link a {
+  text-decoration: none;
+  padding: 0 20px;
+  font-size: 20px;
 }
 
 .titleHeader {
   color: black;
   letter-spacing: 2px;
+  font-size: 45px;
+  font-weight: bold;
   margin-top: 25px;
+  margin-bottom: 15px;
   text-decoration: underline rgb(62, 241, 62);
   text-decoration-thickness: 3px;
-  text-underline-offset: 20px;
+  text-underline-offset: 15px;
 }
 
 @media (max-width: 530px) {
