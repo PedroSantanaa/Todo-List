@@ -6,7 +6,7 @@ import styles from "./List.module.css";
 
 type Props = {
   taskList: ITask[];
-  handleDelete(id: number): void;
+  handleDelete(id: string | undefined): void;
   handleEdit(task: ITask): void;
 };
 const List = ({ taskList, handleDelete, handleEdit }: Props) => {
@@ -17,7 +17,7 @@ const List = ({ taskList, handleDelete, handleEdit }: Props) => {
           <div key={task.id} className={styles.task}>
             <div className={styles.details}>
               <h4>{task.title}</h4>
-              <p>{task.difficulty}</p>
+              <p>{task.categoryId}</p>
             </div>
             <div className={styles.actions}>
               <i

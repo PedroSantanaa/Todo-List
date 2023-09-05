@@ -1,46 +1,63 @@
 import styles from "./Form.module.css";
 import { ITask } from "../interfaces/Task";
-import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import Input from "./Input";
-import { useAuth } from "../context/Auth";
 import { api } from "../axios/api";
-import { CreateTask } from "../interfaces/CreateTask";
 import { ICategory } from "../interfaces/Category";
+import { CreateTask } from "../interfaces/CreateTask";
 
 interface Props {
   btnText: string;
+  userId: string;
   categories: ICategory[];
+  setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>>;
+  setCategoryList?: React.Dispatch<React.SetStateAction<ICategory[]>>;
   task?: ITask | null;
-  handleUpdate?(id: number, title: string, difficulty: number): void;
+  handleUpdate?(id: string | undefined, title: string, categoryId: string): void;
 }
-const Form = ({ btnText, categories, task, handleUpdate }: Props) => {
+const Form = ({
+  btnText,
+  userId,
+  categories,
+  setTaskList,
+  setCategoryList,
+  task,
+  handleUpdate,
+}: Props) => {
   //states
-  const [id, setId] = useState<number>(0);
+  const [id, setId] = useState<string>();
   const [title, setTitle] = useState<string>("");
-  const [difficulty, setDifficulty] = useState<number>(0);
+  const [categoryId, setCategoryId] = useState<string>("");
 
   useEffect(() => {
     if (task) {
       setId(task.id);
       setTitle(task.title);
-      setDifficulty(task.difficulty);
+      setCategoryId(task.categoryId);
     } else {
     }
   }, [task]);
 
   //handle functions
 
+  const createCategory = () => {
+    api.post("category", { name: title });
+    const newCategory = { id: categoryId, name: title };
+    setCategoryList!((prev) => [...prev, newCategory]);
+  };
   const taskHandle = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     if (handleUpdate) {
-      handleUpdate(id, title, difficulty);
+      handleUpdate(id, title, categoryId);
     } else {
       //Id to edit or delete
-      // const newTask: CreateTask = { title, difficulty };
-      api.post;
+      api.post("task", { title, categoryId, userId }).then((response) => {
+        setId(response.data.id);
+      });
+      const newTask: ITask = { id, title, categoryId };
+      setTaskList!((prev) => [...prev, newTask]);
 
       setTitle("");
-      setDifficulty(0);
     }
   };
 
@@ -51,7 +68,7 @@ const Form = ({ btnText, categories, task, handleUpdate }: Props) => {
           <Input
             type="text"
             name="title"
-            placeholder="Add a new task"
+            placeholder="Add a new task/category"
             onChange={(ev: ChangeEvent<HTMLInputElement>) => setTitle(ev.target.value)}
             value={title}
             required
@@ -59,16 +76,23 @@ const Form = ({ btnText, categories, task, handleUpdate }: Props) => {
         </label>
       </div>
       <div>
-        <label>Category</label>
-        <select name="category" id="category">
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <label>
+          Category
+          <select
+            name="category"
+            id="category"
+            onChange={(ev: ChangeEvent<HTMLSelectElement>) => setCategoryId(ev.target.value)}
+          >
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
       <input type="submit" value={btnText} />
+      <input type="submit" value="Criar Categoria" onClick={createCategory} />
     </form>
   );
 };

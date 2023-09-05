@@ -31,8 +31,9 @@ function Home() {
     });
   }, [user]);
   console.log(taskList);
+  console.log("rodando");
 
-  const deleteTask = (id: number) => {
+  const deleteTask = (id: string) => {
     setTaskList(
       taskList.filter((task) => {
         return task.id !== id;
@@ -53,8 +54,8 @@ function Home() {
     setTaskToUpdate(task);
   };
 
-  const updateTask = (id: number, title: string, difficulty: number) => {
-    const updateTask: ITask = { id, title, difficulty };
+  const updateTask = (id: string, title: string, categoryId: string) => {
+    const updateTask: ITask = { id, title, categoryId };
     const updatedItems = taskList.map((task) => {
       return task.id === updateTask.id ? updateTask : task;
     });
@@ -67,6 +68,7 @@ function Home() {
         children={
           <Form
             btnText="Edit Task"
+            userId={user?.id!}
             categories={categoryList}
             task={taskToupdate}
             handleUpdate={updateTask}
@@ -76,7 +78,13 @@ function Home() {
       {/* <Header /> */}
       <main className={styles.main}>
         <div className="form"></div>
-        <Form btnText="Criar Tarefa" categories={categoryList} />
+        <Form
+          btnText="Criar Tarefa"
+          userId={user?.id!}
+          categories={categoryList}
+          setTaskList={setTaskList}
+          setCategoryList={setCategoryList}
+        />
         <div className={styles.todo}>
           <List taskList={taskList} handleDelete={deleteTask} handleEdit={editTask} />
         </div>
