@@ -4,7 +4,6 @@ import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import Input from "./Input";
 import { api } from "../axios/api";
 import { ICategory } from "../interfaces/Category";
-import { CreateTask } from "../interfaces/CreateTask";
 
 interface Props {
   btnText: string;
@@ -92,7 +91,7 @@ const Form = ({
         </label>
       </div>
       <input type="submit" value={btnText} />
-      <input type="submit" value="Criar Categoria" onClick={createCategory} />
+      <input id="createCategory" type="submit" value="Criar Categoria" onClick={createCategory} />
     </form>
   );
 };

@@ -20,7 +20,6 @@ function Home() {
   const [categoryList, setCategoryList] = useState<ICategory[]>([]);
   const [taskToupdate, setTaskToUpdate] = useState<ITask | null>(null);
   const { user } = useAuth();
-  console.log(user);
 
   useEffect(() => {
     api.get(`/task/${user?.id}`).then((response) => {
@@ -30,10 +29,9 @@ function Home() {
       setCategoryList(response.data);
     });
   }, [user]);
-  console.log(taskList);
-  console.log("rodando");
 
   const deleteTask = (id: string) => {
+    api.delete(`/task/${id}`);
     setTaskList(
       taskList.filter((task) => {
         return task.id !== id;
@@ -42,10 +40,13 @@ function Home() {
   };
   const hideOrShowModal = (display: boolean) => {
     const modal = document.querySelector("#modal");
+    const createCategory = document.querySelector("#createCategory");
     if (display) {
       modal!.classList.remove("hide");
+      createCategory!.classList.add("hide");
     } else {
       modal!.classList.add("hide");
+      createCategory!.classList.remove("hide");
     }
   };
 
@@ -55,6 +56,7 @@ function Home() {
   };
 
   const updateTask = (id: string, title: string, categoryId: string) => {
+    api.patch(`/task/${id}`, { title, categoryId });
     const updateTask: ITask = { id, title, categoryId };
     const updatedItems = taskList.map((task) => {
       return task.id === updateTask.id ? updateTask : task;
@@ -86,7 +88,12 @@ function Home() {
           setCategoryList={setCategoryList}
         />
         <div className={styles.todo}>
-          <List taskList={taskList} handleDelete={deleteTask} handleEdit={editTask} />
+          <List
+            taskList={taskList}
+            categoryList={categoryList}
+            handleDelete={deleteTask}
+            handleEdit={editTask}
+          />
         </div>
       </main>
       <Footer />

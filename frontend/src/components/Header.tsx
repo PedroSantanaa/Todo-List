@@ -11,7 +11,7 @@ const Header = () => {
       {user ? (
         <div className={styles.linkAuth}>
           <Link to="/profile">PROFILE</Link>
-          <Link to="/noAuth" onClick={logout}>
+          <Link to="/login" onClick={logout}>
             LOGOUT
           </Link>
         </div>
