@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   const corsOptions: CorsOptions = {
-    origin: 'http://localhost:5173', // Replace with the actual origin of your frontend app
+    origin: ['http://localhost:5173', 'https://todo-list-ps.vercel.app/'], // Replace with the actual origin of your frontend app
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Enable credentials (e.g., cookies, authorization headers)
   };
