@@ -1,0 +1,18 @@
+.background {
+  background-color: #eee9da;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.form div {
+  display: flex;
+  flex-direction: column;
+}
