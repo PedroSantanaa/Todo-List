@@ -41,8 +41,8 @@ const Form = ({
 
   const createCategory = () => {
     api.post("category", { name: title });
-    const newCategory = { id: categoryId, name: title };
-    setCategoryList!((prev) => [...prev, newCategory]);
+    // const newCategory = { id: categoryId, name: title };
+    // setCategoryList!((prev) => [...prev, newCategory]);
   };
   const taskHandle = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
@@ -59,40 +59,55 @@ const Form = ({
       setTitle("");
     }
   };
+  const handleDeleteCategory = () => {
+    api.delete(`/category/${categoryId}`);
+    setCategoryList!((prev) => prev.filter((category) => category.id !== categoryId));
+  };
 
   return (
-    <form onSubmit={taskHandle} className={styles.form}>
-      <div>
-        <label>
-          <Input
-            type="text"
-            name="title"
-            placeholder="Add a new task/category"
-            onChange={(ev: ChangeEvent<HTMLInputElement>) => setTitle(ev.target.value)}
-            value={title}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Category
-          <select
-            name="category"
-            id="category"
-            onChange={(ev: ChangeEvent<HTMLSelectElement>) => setCategoryId(ev.target.value)}
-          >
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <input type="submit" value={btnText} />
-      <input id="createCategory" type="submit" value="Criar Categoria" onClick={createCategory} />
-    </form>
+    <div>
+      <form onSubmit={taskHandle} className={styles.form}>
+        <div>
+          <label>
+            <Input
+              type="text"
+              name="title"
+              placeholder="Add a new task/category"
+              onChange={(ev: ChangeEvent<HTMLInputElement>) => setTitle(ev.target.value)}
+              value={title}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Category
+            <select
+              name="category"
+              id="category"
+              onChange={(ev: ChangeEvent<HTMLSelectElement>) => setCategoryId(ev.target.value)}
+            >
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <button className={styles.delete} onClick={handleDeleteCategory}>
+              Deletar Categoria
+            </button>
+          </label>
+        </div>
+        <input type="submit" value={btnText} />
+      </form>
+      <input
+        id="createCategory"
+        className={styles.category}
+        type="submit"
+        value="Criar Categoria"
+        onClick={createCategory}
+      />
+    </div>
   );
 };
 export default Form;

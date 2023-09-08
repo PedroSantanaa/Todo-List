@@ -39,9 +39,35 @@
   background-color: #6096b4;
   border-color: #6096b4;
 }
+.category {
+  width: 350px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #93bfcf;
+  color: white;
+  border: 2px solid #93bfcf;
+  font-weight: bold;
+  font-size: 17px;
+  transform: 0.5s;
+  cursor: pointer;
+}
 
+.category:hover {
+  background-color: #6096b4;
+  border-color: #6096b4;
+}
+
+.delete {
+  border: none;
+  color: red;
+  cursor: pointer;
+}
 @media (max-width: 530px) {
   .form input {
+    width: 250px;
+    height: 40px;
+  }
+  .category {
     width: 250px;
     height: 40px;
   }
@@ -49,6 +75,10 @@
 
 @media (max-width: 335px) {
   .form input {
+    width: 200px;
+    height: 40px;
+  }
+  .category {
     width: 200px;
     height: 40px;
   }
