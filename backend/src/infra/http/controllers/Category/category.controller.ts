@@ -31,7 +31,7 @@ export class CategoryController {
   @Get('')
   async getCategoriesName() {
     const { categoriesObj } = await this.getCategoriesNameCategory.execute();
-    const categoriesName = categoriesObj.map((obj) => obj.name);
+    // const categoriesName = categoriesObj.map((obj) => obj.name);
     return categoriesObj;
   }
   @Delete(':uuid')

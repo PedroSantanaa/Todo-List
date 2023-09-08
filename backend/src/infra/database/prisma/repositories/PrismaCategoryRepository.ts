@@ -17,6 +17,11 @@ export class PrismaCategoryRepository implements CategoryRepository {
     return categoriesName;
   }
   async delete(id: string): Promise<void> {
+    await this.prisma.task.deleteMany({
+      where: {
+        categoryId: id,
+      },
+    });
     await this.prisma.category.delete({
       where: {
         id,

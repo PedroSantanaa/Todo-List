@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { CreateUserCase } from 'src/application/use-cases/auth/create-user-case';
 import { CreateUserDTO } from '../../dtos/createUserDTO';
 import * as bcrypt from 'bcrypt';
@@ -28,9 +28,9 @@ export class AuthController {
   async login(@Body() body: LoginUserDTO) {
     return this.loginUserCase.execute(body);
   }
-  @Post('/me')
-  async me(@Req() request) {
-    const { authorization } = request.headers;
-    const token = (authorization ?? '').split(' ')[1];
-  }
+  // @Post('/me')
+  // async me(@Req() request) {
+  //   const { authorization } = request.headers;
+  //   const token = (authorization ?? '').split(' ')[1];
+  // }
 }
