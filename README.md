@@ -14,6 +14,9 @@ Bem Vindo ao meu projeto pessoal de Todo List, onde fiz a parte do front e back 
 - Prisma
 - Postgres
 
+## Deploy 
+https://todo-list-ps.vercel.app
+
 ## Como Utilizar
 Baixar o repositório utilizando
 ```bash
