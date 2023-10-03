@@ -6,12 +6,7 @@ COPY package*.json ./
 
 RUN npm ci
 
-USER node
-
-RUN addgroup --system --gid 1001 node
-RUN adduser --system --uid 1001 node
-
-COPY --chown=node:node . .
+COPY . .
 
 RUN npm run build
 
