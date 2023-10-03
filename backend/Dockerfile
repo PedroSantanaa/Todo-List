@@ -10,7 +10,7 @@ USER node
 
 COPY --chown=node:node ./src .
 
-RUN npm run build
+RUN cd ./backend && npm run build
 
 EXPOSE 3000
 
