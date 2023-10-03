@@ -8,9 +8,9 @@ RUN npm ci
 
 USER node
 
-COPY --chown=node:node ./src .
+COPY --chown=node:node . .
 
-RUN cd ./backend && npm run build
+RUN npm run build
 
 EXPOSE 3000
 
