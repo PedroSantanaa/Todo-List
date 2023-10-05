@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// otherUrl="https://todolist-yxza.onrender.com"
 export const api = axios.create({
-  baseURL: "https://todolist-yxza.onrender.com",
+  baseURL: "http://localhost:3000/",
 });

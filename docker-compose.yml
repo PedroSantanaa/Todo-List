@@ -1,0 +1,29 @@
+services:
+  client-react-vite:
+    image: client-react-vite
+    build: ./frontend
+    init: true
+    ports:
+      - 5173:5173
+  api-nestjs:
+    image: api-nestjs
+    build: ./backend
+    depends_on:
+      - db
+    init: true
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+  db:
+    image: postgres:15.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: vacuumBack
+      POSTGRES_DB: todoDBDocker
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
